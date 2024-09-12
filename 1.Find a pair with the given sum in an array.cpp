@@ -1,52 +1,70 @@
+// Find pair with given sum in the array
+
+
 #include<iostream>
-#include<algorithm>
+#include <algorithm>
 #include<unordered_map>
 using namespace std;
-void Findpair(int arr[],int n,int target)
-{
+//1. Using Brute-Force O(n^2)
+// void Pair(int n, int arr[], int target){
+   
+//     for(int i=0;i<n-1;i++)
+//     {
+//        for(int j=i+1;j<n;j++)
+//        {
+//         if(arr[i]+arr[j]==target)
+//         {
+//             cout<<arr[i]<<" "<<arr[j];
+//             return;
+//         }
+//        }
+//     }
+//     cout<<"Pair not found";
+// }
 
-    /*for(int i=0;i<n-1;i++){
-        for(int j=i+1;j<n;j++){
-            if(arr[i]+arr[j]==target){
-                cout<<arr[i]<<" , "<<arr[j];
-            }
-        }
-        cout<<endl;
+//2.  Using Sorting O(n.log(n))
+// void Pair(int n, int arr[], int target){
+//    sort(arr,arr+n);
+//    int i=0;
+//    int j=n-1;
+//    while(i<=j){
+//     if(arr[i]+arr[j]==target)
+//     {
+//         cout<<arr[i]<<" "<<arr[j];
+//         return;
+//     }
+//     if(arr[i]+arr[j]<target){
+//         i++;
+//     }
+//     else{
+//         j--;
+//     }
+//    }
+//    cout<<"Pair not found";
+// }
+
+//3. Using Hashing O(n)
+void Pair(int n, int arr[], int target){
+   unordered_map<int,int> map;
+   for(int i=0;i<n;i++){
+    if(map.find(target-arr[i])!=map.end()){
+        cout<<arr[i]<<" "<<arr[map[target-arr[i]]];
+        break;
     }
-    cout<<"Pair not fount";*/
-    /*int low=0;
-    int high=n-1;
-    sort(arr,arr+n);
-    while(low<high)
-    {
-        if(arr[low]+arr[high]==target){
-            cout<<arr[low]<<" , "<<arr[high];
-            low++;
-            high--;
-        }
-        if(arr[low]+arr[high]<target){
-            low++;
-        }
-        else{
-            high--;
-        }
-    }*/
-    unordered_map<int,int> ump;
-    for(int i=0;i<n;i++){
-        if(ump.find(target-arr[i])!=ump.end()){
-            cout<<arr[ump[target - arr[i]]]<<" "<<arr[i];
-            return;
-        }
-
-        ump[arr[i]]=i;
-    }
-
+    map[arr[i]]=i;
+   }
 }
-int main()
-{
 
-    int n=6;
-    int arr[6]={8,7,2,5,3,1};
-    int target=10;
-    Findpair(arr,n,target);
+int main(){
+   int n,target;
+   cout<<"size = ";
+   cin>>n;
+   int arr[n];
+   for(int i=0;i<n;i++)
+   {
+    cin>>arr[i];
+   }
+   cout<<"Target = ";
+   cin>>target;
+   Pair(n,arr,target);
 }
