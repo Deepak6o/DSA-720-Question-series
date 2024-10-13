@@ -1,62 +1,51 @@
+// Find the largest subarray formed by consecutive integers
+
 #include<iostream>
-#include<bits/stdc++.h>
+#include<algorithm>
 using namespace std;
-/*Bruteful solution
-bool linear(int arr[],int n, int x)
-{
-
-    for(int i=0;i<n;i++)
-    {
-        if(arr[i]==x)
-        {
-            return true;
-        }
+bool isConsecutive(int n, int arr[], int i, int j, int miin, int maax){
+    if(maax-miin!=j-i){
+        return false;
     }
-    return false;
+    vector<bool> visited(j-i+1);
+    for(int k=i;k<=j;k++)
+    {
+        if(visited[k]){
+            return false;
+        }
+        visited[arr[k]]=true;
+    }
+    return true;
 }
-int largestSubarray(int nums[], int n)
-{
-    int longest=1;
-    for(int i=0;i<n;i++)
+int largsubarr(int n, int arr[]){
+    int len=1;
+    int start=0;
+    int end=0;
+
+    // step 1: 1stly find the max and min of every subarray
+    for(int i=0;i<n-1;i++)
     {
-        int x=nums[i];
-        int count=1;
-        while(linear(nums,n,x+1)==true){
-            x=x+1;
-            count++;
-            longest=max(longest,count);
-        }
-
-    }
-    return longest;
-
-
-}*/
-int largestSubarray(int nums[],int n)
-{
-    sort(nums,nums+n);
-    int lastSmall=INT_MIN;
-    int longest=1;
-    int cnt=1;
-    for(int i=0;i<n;i++)
-    {
-        if(nums[i]-1==lastSmall)
+        int miin = arr[i];
+        int maax = arr[i];
+        for(int j=i+1;j<n;j++)
         {
-            cnt++;
-            lastSmall=nums[i];
+            miin = min(miin, arr[j]);
+            maax = max(maax, arr[j]);
+            if(isConsecutive(n,arr,i,j,miin,maax))
+            {
+                if(len<maax-miin+1){
+                    len=maax+miin+1;
+                    start=i;
+                    end=j;
+                }
+            }
         }
-        else if(nums[i]!=lastSmall)
-        {
-            cnt=1;
-            lastSmall=nums[i];
-        }
-        longest=max(longest,cnt);
     }
-    return longest;
+    cout<<start<<" "<<end;
 }
 int main()
 {
-    int nums[] = {2, 0, 2, 1, 4, 3, 1, 0};
-    int n= sizeof(nums)/sizeof(nums[0]);
-    cout<<largestSubarray(nums,n);
+    int arr[]={8,1,2,3,4,5,6,7};
+    int n=sizeof(arr)/sizeof(arr[0]);
+    largsubarr(n,arr);
 }
