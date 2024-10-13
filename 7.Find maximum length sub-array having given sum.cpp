@@ -1,47 +1,49 @@
+//Find maximum length subarray having a given sum
 #include<iostream>
-#include<bits/stdc++.h>
+#include<algorithm>
+#include<unordered_map>
 using namespace std;
-void Maxlen(int arr[], int n, int target)
-{
-    /*int len=INT_MIN;
-    int e=-1;
-    for(int i=0;i<n;i++)
-    {
-        int sum=0;
-        for(int j=i;j<n;j++)
-        {
-            sum+=arr[j];
-            if(sum==target){
-                if(len<j-i+1)
-                {
-                    len=j-i+1;
-                    e=j;
-                }
-            }
-        }
-    }
-    cout<<e-len+1<<" - "<<e;*/
-    unordered_map<int,int> mp;
+// Bruteful solution O(n^2)
+// void maxlensubarr(int n, int arr[], int target){
+//     int res=INT_MIN;
+//     for(int i=0;i<n;i++)
+//     {
+//         int sum=0;
+//         for(int j=i;j<n;j++)
+//         {
+//             sum+=arr[j];
+//             if(sum==target)
+//             {
+//                 if(j-i+1>res)
+//                 {
+//                     res=j-i+1;
+//                 }
+//             }
+//         }
+//     }
+//     cout<<res;
+// }
+void  maxlensubarr(int n, int arr[], int target){
     int maxlength=0;
-    int current=0;
+    int currentsum=0;
+    unordered_map<int,int> mp;
     for(int i=0;i<n;i++)
     {
-        current+=arr[i];
-        if(mp.find(current)==mp.end())
-        {
-            mp[current]=i;
+        currentsum+=arr[i];
+        if(mp.find(currentsum)==mp.end()){
+            mp[currentsum]=i;
         }
-        if(mp.find(current-target)!=mp.end())
-        {
-            maxlength=max(maxlength,i-mp[current-target]);
+        if(mp.find(currentsum-target)!=mp.end()){
+            maxlength=max(maxlength, i-mp[currentsum-target]);
         }
     }
     cout<<maxlength;
+
 }
 int main()
 {
-    int arr[]={5, 6, -5, 5, 3, 5, 3, -2, 0};
-    int  n=sizeof(arr)/sizeof(arr[0]);
-    int target=8;
-    Maxlen(arr,n,target);
+    int arr[] = { 5, 6, -5, 5, 3, 5, 3,-3, -2, 0 };
+    int n = sizeof(arr)/sizeof(arr[0]);
+    int target =8;
+    maxlensubarr(n,arr,target);
 }
