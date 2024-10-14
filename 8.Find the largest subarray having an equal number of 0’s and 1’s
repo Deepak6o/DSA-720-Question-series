@@ -1,0 +1,78 @@
+// Find the largest subarray having an equal number of 0’s and 1’s
+
+// Find maximum length subarray having a given sum
+#include <iostream>
+#include <algorithm>
+#include <unordered_map>
+using namespace std;
+
+// Bruteful Solution O(n^2)
+// void zeroone(int n, int arr[])
+// {
+//     int res=0;
+//     for(int i=0;i<n;i++){
+//         int count0=0;
+//         int count1=0;
+//         for(int j=i;j<n;j++)
+//         {
+//             if(arr[j]==0)
+//             {
+//                 count0++;
+//             }else{
+//                 count1++;
+//             }
+//             if(count0==count1){
+//                 if(j-i+1>res){
+//                     res=j-i+1;
+//                 }
+//             }
+//         }
+//     }
+//     cout<<res;
+// }
+
+void zeroone(int n, int arr[])
+{
+    int maxlen = INT_MIN;
+    int start = -1;
+    int end = -1;
+    int sum = 0;
+    unordered_map<int, int> map;
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] == 0)
+        {
+            sum += -1;
+        }
+        else
+        {
+            sum += 1;
+        }
+
+        if (sum == 0)
+        {
+            maxlen = i + 1;
+            start = 0;
+            end = i;
+        }
+
+        if(map.find(sum)!=map.end()){
+            int len = i-map[sum];
+            if(len>maxlen){
+                maxlen=len;
+                start = map[sum]+1;
+                end=i;
+            }
+        }
+        else{
+            map[sum]=i;
+        }
+    }
+    cout<<maxlen;
+}
+int main()
+{
+    int arr[] = { 1, 1, 0, 0, 0, 1, 0, 1,0};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    zeroone(n, arr);
+}
