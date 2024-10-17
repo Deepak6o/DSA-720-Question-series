@@ -1,0 +1,58 @@
+//Merge two arrays by satisfying given constraints
+#include<iostream>
+using namespace std;
+void Merge(int m, int n, int x[], int y[]){ 
+    // int i=0;
+    // int j=0;
+    // int k=0;
+    // int arr[m+n];
+    // while(i<m && j<n)
+    // {
+    //     if(x[i]<y[j]){
+    //         arr[k++]=x[i++];
+    //     }
+    //     else{
+    //         arr[k++]=y[j++];
+    //     }
+    // }
+    // while(i<m){
+    //     arr[k++]=x[i++];
+    // }
+    // while(j<n){
+    //     arr[k++]=y[j++];
+    // }
+    // for(int i=0;i<m+n;i++){
+    //     if(arr[i]==0){
+    //         continue;
+    //     }
+    //     else{
+    //         cout<<arr[i]<<" ";
+    //     }
+    // }
+    int k=m+n;
+    while (m>=0 && n>=0)
+    {
+        if(x[m]>y[n]){
+            x[k--]=x[m--];
+        }
+        else{
+            x[k--]=y[n--];
+        }
+    }
+    while(n>=0)
+    {
+        x[k--]=y[n--];
+    }
+    for(int i=0;i<m+n;i++)
+    {
+        cout<<x[i]<<" ";
+    }
+
+}
+int main(){
+    int x[] = { 1, 4, 7, 8, 10 };
+    int y[] = { 2, 3, 9 };
+    int m = sizeof(x)/sizeof(x[0]);
+    int n = sizeof(y)/sizeof(y[0]);
+    Merge(m, n, x, y);
+}
