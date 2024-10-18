@@ -2,52 +2,34 @@
 #include<iostream>
 using namespace std;
 void Merge(int m, int n, int x[], int y[]){ 
-    // int i=0;
-    // int j=0;
-    // int k=0;
-    // int arr[m+n];
-    // while(i<m && j<n)
-    // {
-    //     if(x[i]<y[j]){
-    //         arr[k++]=x[i++];
-    //     }
-    //     else{
-    //         arr[k++]=y[j++];
-    //     }
-    // }
-    // while(i<m){
-    //     arr[k++]=x[i++];
-    // }
-    // while(j<n){
-    //     arr[k++]=y[j++];
-    // }
-    // for(int i=0;i<m+n;i++){
-    //     if(arr[i]==0){
-    //         continue;
-    //     }
-    //     else{
-    //         cout<<arr[i]<<" ";
-    //     }
-    // }
-    int k=m+n;
-    while (m>=0 && n>=0)
+    int i=0;
+    int j=0;
+    int k=0;
+    int arr[m+n];
+    while(i<m && j<n)
     {
-        if(x[m]>y[n]){
-            x[k--]=x[m--];
+        if(x[i]<y[j]){
+            arr[k++]=x[i++];
         }
         else{
-            x[k--]=y[n--];
+            arr[k++]=y[j++];
         }
     }
-    while(n>=0)
-    {
-        x[k--]=y[n--];
+    while(i<m){
+        arr[k++]=x[i++];
     }
-    for(int i=0;i<m+n;i++)
-    {
-        cout<<x[i]<<" ";
+    while(j<n){
+        arr[k++]=y[j++];
     }
-
+    for(int i=0;i<m+n;i++){
+        if(arr[i]==0){
+            continue;
+        }
+        else{
+            cout<<arr[i]<<" ";
+        }
+    }
+    
 }
 int main(){
     int x[] = { 1, 4, 7, 8, 10 };
