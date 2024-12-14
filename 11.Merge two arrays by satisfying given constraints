@@ -32,8 +32,8 @@ void Merge(int m, int n, int x[], int y[]){
     
 }
 int main(){
-    int x[] = { 1, 4, 7, 8, 10 };
-    int y[] = { 2, 3, 9 };
+    int x[] = {0, 2, 0, 3, 0, 5, 6, 0, 0 };
+    int y[] = { 1, 8, 9, 10, 15 };
     int m = sizeof(x)/sizeof(x[0]);
     int n = sizeof(y)/sizeof(y[0]);
     Merge(m, n, x, y);
