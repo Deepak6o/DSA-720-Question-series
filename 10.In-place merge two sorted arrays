@@ -1,59 +1,67 @@
-//In-place merge two sorted arrays
+// In-place merge two sorted arrays
 #include<iostream>
 #include<algorithm>
 using namespace std;
 
-void printarr(int size, int arr[]){
-    for(int i = 0; i < size; i++){
-        cout << arr[i] << " ";
+void Print(int size, int arr[]){
+    for(int i=0;i<size;i++){
+        cout<< arr[i]<< " ";
     }
-    cout << endl;
 }
 
-void InPlaceMerge(int m, int n, int x[], int y[]){
-    int i = 0, j = 0, k = 0;
-    int size = m + n;
-    int arr[size];
-
-    // Merge both arrays into a temporary array
-    while (i < m && j < n) {
-        if (x[i] < y[j]) {
-            arr[k++] = x[i++];
-        } else {
-            arr[k++] = y[j++];
+void Inplace(int m, int n, int arr[], int brr[]){
+    for(int i=0;i<m;i++)
+    {
+        if(arr[i]>brr[0]){
+            swap(arr[i],brr[0]);
+            int first = brr[0];
+            int k;
+            for(k=1;k<n && brr[k]<first; k++){
+                brr[k-1]=brr[k];
+            }
+            brr[k-1]=first;
         }
     }
-
-    // Copy remaining elements of x[]
-    while (i < m) {
-        arr[k++] = x[i++];
-    }
-
-    // Copy remaining elements of y[]
-    while (j < n) {
-        arr[k++] = y[j++];
-    }
-
-    // Copy back the merged elements into the original arrays
-    for (i = 0; i < m; i++) {
-        x[i] = arr[i];
-    }
-    for (i = 0; i < n; i++) {
-        y[i] = arr[m + i];
-    }
-
-    // Print the merged arrays
-    printarr(m, x);
-    printarr(n, y);
 }
 
-int main() {
-    int x[] = { 1, 4, 7, 8, 10 };
-    int y[] = { 2, 3, 9 };
-    int m = sizeof(x)/sizeof(x[0]);
-    int n = sizeof(y)/sizeof(y[0]);
-    
-    InPlaceMerge(m, n, x, y);
+// void INPLACE(int n, int m, int arr[], int brr[]){
+//     int extra[n+m];
+//     int i=0;
+//     int j=0;
+//     int k=0;
+//     while(i<n && j<m){
+//         if(arr[i]<brr[j]){
+//             extra[k++]=arr[i++];
+//         }
+//         else{
+//             extra[k++]=brr[j++];
+//         }
+//     }
+//     while(i<n){
+//         extra[k++]=arr[i++];
+//     }
+//     while(j<m){
+//         extra[k++]=brr[j++];
+//     }
 
-    return 0;
+    
+//     for(int x=0;x<n;x++){
+//         cout<<extra[x]<<" ";
+//     }
+//     cout<<endl;
+//     for(int x=n;x<n+m;x++){
+//         cout<<extra[x]<< " ";
+//     }
+// }
+int main(){
+    int arr[] = {1, 4, 7, 8, 10};
+    int brr[] = {2, 3, 9 };
+    int m = sizeof(arr)/sizeof(arr[0]);
+    int n = sizeof(brr)/sizeof(brr[0]);
+    Inplace(m,n,arr,brr);
+    cout<<" arr[] = ";
+    Print(m,arr);
+    cout<<endl;
+    cout<<" brr[] = ";
+    Print(n,brr);
 }
